@@ -30,6 +30,15 @@ class dbhandleServicer(db_pb2_grpc.dbhandleServicer):
         else:
             return db_pb2.UserData(clicked_ad_id=[], viewed_post_id=[], liked_post_id=[])
 
+    def AuthorToAd(self, request, context):
+        tag = request.id
+        obj = self.db["Ads"]
+        ads = []
+        for k in obj.keys():
+            if tag == obj[k]["publisher_id"]:
+                ads.append(k)
+        return db_pb2.Ads(ads_id=ads)
+
     def TagToAd(self, request, context):
         tag = request.tag
         obj = self.db["Ads"]
@@ -45,6 +54,15 @@ class dbhandleServicer(db_pb2_grpc.dbhandleServicer):
         posts = []
         for k in obj.keys():
             if tag in obj[k]["tags"]:
+                posts.append(k)
+        return db_pb2.Posts(posts_id=posts)
+
+    def AuthorToPosts(self, request, context):
+        tag = request.id
+        obj = self.db["Posts"]
+        posts = []
+        for k in obj.keys():
+            if tag == obj[k]["publisher_id"]:
                 posts.append(k)
         return db_pb2.Posts(posts_id=posts)
 

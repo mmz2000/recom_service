@@ -8,6 +8,8 @@ service dbhandle {
     rpc UserIdtoData (Id) returns (UserData) {}     //get an user's data from its id
     rpc TagToPost (Tag) returns (Posts) {}          //get posts' id assosiated with a tag
     rpc TagToAd (Tag) returns (Ads) {}              //get ads' id assosiated with a tag
+    rpc AuthorToPosts (Id) returns (Posts) {}
+    rpc AuthorToAd (Id) returns (Ads) {}
 }
 
 message Id {

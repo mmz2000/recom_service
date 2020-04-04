@@ -39,6 +39,16 @@ class dbhandleStub(object):
         request_serializer=db__pb2.Tag.SerializeToString,
         response_deserializer=db__pb2.Ads.FromString,
         )
+    self.AuthorToPosts = channel.unary_unary(
+        '/dbhandle/AuthorToPosts',
+        request_serializer=db__pb2.Id.SerializeToString,
+        response_deserializer=db__pb2.Posts.FromString,
+        )
+    self.AuthorToAd = channel.unary_unary(
+        '/dbhandle/AuthorToAd',
+        request_serializer=db__pb2.Id.SerializeToString,
+        response_deserializer=db__pb2.Ads.FromString,
+        )
 
 
 class dbhandleServicer(object):
@@ -80,6 +90,20 @@ class dbhandleServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def AuthorToPosts(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def AuthorToAd(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_dbhandleServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -106,6 +130,16 @@ def add_dbhandleServicer_to_server(servicer, server):
       'TagToAd': grpc.unary_unary_rpc_method_handler(
           servicer.TagToAd,
           request_deserializer=db__pb2.Tag.FromString,
+          response_serializer=db__pb2.Ads.SerializeToString,
+      ),
+      'AuthorToPosts': grpc.unary_unary_rpc_method_handler(
+          servicer.AuthorToPosts,
+          request_deserializer=db__pb2.Id.FromString,
+          response_serializer=db__pb2.Posts.SerializeToString,
+      ),
+      'AuthorToAd': grpc.unary_unary_rpc_method_handler(
+          servicer.AuthorToAd,
+          request_deserializer=db__pb2.Id.FromString,
           response_serializer=db__pb2.Ads.SerializeToString,
       ),
   }

@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x08\x64\x62.proto\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x01(\t\"S\n\x06\x41\x64\x44\x61ta\x12\x0c\n\x04tags\x18\x01 \x03(\t\x12\x13\n\x0b\x63lickers_id\x18\x02 \x03(\t\x12\x10\n\x08pub_date\x18\x03 \x01(\t\x12\x14\n\x0cpublisher_id\x18\x04 \x01(\t\"g\n\x08PostData\x12\x0c\n\x04tags\x18\x01 \x03(\t\x12\x12\n\nviewers_id\x18\x02 \x03(\t\x12\x11\n\tlikers_id\x18\x03 \x03(\t\x12\x10\n\x08pub_date\x18\x04 \x01(\t\x12\x14\n\x0cpublisher_id\x18\x05 \x01(\t\"P\n\x08UserData\x12\x15\n\rclicked_ad_id\x18\x01 \x03(\t\x12\x16\n\x0eviewed_post_id\x18\x02 \x03(\t\x12\x15\n\rliked_post_id\x18\x03 \x03(\t\"\x12\n\x03Tag\x12\x0b\n\x03tag\x18\x01 \x01(\t\"\x19\n\x05Posts\x12\x10\n\x08posts_id\x18\x01 \x03(\t\"\x15\n\x03\x41\x64s\x12\x0e\n\x06\x61\x64s_id\x18\x01 \x03(\t2\xa2\x01\n\x08\x64\x62handle\x12\x1c\n\nAdIdToData\x12\x03.Id\x1a\x07.AdData\"\x00\x12 \n\x0cPostIdtoData\x12\x03.Id\x1a\t.PostData\"\x00\x12 \n\x0cUserIdtoData\x12\x03.Id\x1a\t.UserData\"\x00\x12\x1b\n\tTagToPost\x12\x04.Tag\x1a\x06.Posts\"\x00\x12\x17\n\x07TagToAd\x12\x04.Tag\x1a\x04.Ads\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x08\x64\x62.proto\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x01(\t\"S\n\x06\x41\x64\x44\x61ta\x12\x0c\n\x04tags\x18\x01 \x03(\t\x12\x13\n\x0b\x63lickers_id\x18\x02 \x03(\t\x12\x10\n\x08pub_date\x18\x03 \x01(\t\x12\x14\n\x0cpublisher_id\x18\x04 \x01(\t\"g\n\x08PostData\x12\x0c\n\x04tags\x18\x01 \x03(\t\x12\x12\n\nviewers_id\x18\x02 \x03(\t\x12\x11\n\tlikers_id\x18\x03 \x03(\t\x12\x10\n\x08pub_date\x18\x04 \x01(\t\x12\x14\n\x0cpublisher_id\x18\x05 \x01(\t\"P\n\x08UserData\x12\x15\n\rclicked_ad_id\x18\x01 \x03(\t\x12\x16\n\x0eviewed_post_id\x18\x02 \x03(\t\x12\x15\n\rliked_post_id\x18\x03 \x03(\t\"\x12\n\x03Tag\x12\x0b\n\x03tag\x18\x01 \x01(\t\"\x19\n\x05Posts\x12\x10\n\x08posts_id\x18\x01 \x03(\t\"\x15\n\x03\x41\x64s\x12\x0e\n\x06\x61\x64s_id\x18\x01 \x03(\t2\xdd\x01\n\x08\x64\x62handle\x12\x1c\n\nAdIdToData\x12\x03.Id\x1a\x07.AdData\"\x00\x12 \n\x0cPostIdtoData\x12\x03.Id\x1a\t.PostData\"\x00\x12 \n\x0cUserIdtoData\x12\x03.Id\x1a\t.UserData\"\x00\x12\x1b\n\tTagToPost\x12\x04.Tag\x1a\x06.Posts\"\x00\x12\x17\n\x07TagToAd\x12\x04.Tag\x1a\x04.Ads\"\x00\x12\x1e\n\rAuthorToPosts\x12\x03.Id\x1a\x06.Posts\"\x00\x12\x19\n\nAuthorToAd\x12\x03.Id\x1a\x04.Ads\"\x00\x62\x06proto3'
 )
 
 
@@ -370,7 +370,7 @@ _DBHANDLE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   serialized_start=373,
-  serialized_end=535,
+  serialized_end=594,
   methods=[
   _descriptor.MethodDescriptor(
     name='AdIdToData',
@@ -414,6 +414,24 @@ _DBHANDLE = _descriptor.ServiceDescriptor(
     index=4,
     containing_service=None,
     input_type=_TAG,
+    output_type=_ADS,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='AuthorToPosts',
+    full_name='dbhandle.AuthorToPosts',
+    index=5,
+    containing_service=None,
+    input_type=_ID,
+    output_type=_POSTS,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='AuthorToAd',
+    full_name='dbhandle.AuthorToAd',
+    index=6,
+    containing_service=None,
+    input_type=_ID,
     output_type=_ADS,
     serialized_options=None,
   ),
