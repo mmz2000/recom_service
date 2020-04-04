@@ -1,0 +1,48 @@
+//proto for getting request from servers to database
+
+syntax = "proto3";
+
+service dbhandle {
+    rpc AdIdToData (Id) returns (AdData) {}         //get an ad's data from its id
+    rpc PostIdtoData (Id) returns (PostData) {}     //get an post's data from its id
+    rpc UserIdtoData (Id) returns (UserData) {}     //get an user's data from its id
+    rpc TagToPost (Tag) returns (Posts) {}          //get posts' id assosiated with a tag
+    rpc TagToAd (Tag) returns (Ads) {}              //get ads' id assosiated with a tag
+}
+
+message Id {
+    string id = 1;
+}
+
+message AdData {
+    repeated string tags = 1;
+    repeated string clickers_id = 2;
+    string pub_date = 3;
+    string publisher_id = 4;
+}
+
+message PostData {
+    repeated string tags = 1;
+    repeated string viewers_id = 2;
+    repeated string likers_id = 3;
+    string pub_date = 4;
+    string publisher_id = 5;
+}
+
+message UserData {
+    repeated string clicked_ad_id = 1;
+    repeated string viewed_post_id = 2;
+    repeated string liked_post_id = 3;
+}
+
+message Tag {
+    string tag = 1;
+}
+
+message Posts{
+    repeated string posts_id = 1;
+}
+
+message Ads{
+    repeated string ads_id = 1;
+}
