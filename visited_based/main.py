@@ -22,9 +22,9 @@ def AD(pid, stub):
     tags_rate = {}
     publisher_rate = {}
     ad_ratings = {}
-    profile_data = stub.UserIdtoData(pid)
+    profile_data = stub.UserIdtoData(db_pb2.Id(id=pid))
     for i in profile_data.clicked_ad_id:
-        A_data = stub.AdIdToData(i)
+        A_data = stub.AdIdToData(db_pb2.Id(id=i))
         for j in A_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 2/len(list(profile_data.clicked_ad_id))
@@ -37,7 +37,7 @@ def AD(pid, stub):
             publisher_rate[A_data.publisher_id] = 6 / \
                 len(list(profile_data.clicked_ad_id))
     for i in profile_data.viewed_post_id:
-        P_data = stub.PostIdToData(i)
+        P_data = stub.PostIdToData(db_pb2.Id(id=i))
         for j in P_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 2/len(list(profile_data.viewed_post_id))
@@ -50,7 +50,7 @@ def AD(pid, stub):
             publisher_rate[P_data.publisher_id] = 6 / \
                 len(list(profile_data.viewed_post_id))
     for i in profile_data.liked_post_id:
-        P_data = stub.PostIdToData(i)
+        P_data = stub.PostIdToData(db_pb2.Id(id=i))
         for j in P_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 3/len(list(profile_data.liked_post_id))
@@ -63,7 +63,7 @@ def AD(pid, stub):
             publisher_rate[P_data.publisher_id] = 9 / \
                 len(list(profile_data.liked_post_id))
     for i in tags_rate.keys():
-        temp = stub.TagToAd(i)
+        temp = stub.TagToAd(db_pb2.Id(id=i))
         for j in temp.ads_id:
             if j not in profile_data.clicked_ad_id:
                 if j in ad_ratings.keys():
@@ -71,7 +71,7 @@ def AD(pid, stub):
                 else:
                     ad_ratings[j] = tags_rate[i]
     for i in publisher_rate.keys():
-        temp = stub.AuthorToAd(i)
+        temp = stub.AuthorToAd(db_pb2.Id(id=i))
         for j in temp.ads_id:
             if j not in profile_data.clicked_ad_id:
                 if j in ad_ratings.keys():
@@ -88,9 +88,9 @@ def PR(pid, stub):
     tags_rate = {}
     publisher_rate = {}
     post_ratings = {}
-    profile_data = stub.UserIdtoData(pid)
+    profile_data = stub.UserIdtoData(db_pb2.Id(id=pid))
     for i in profile_data.clicked_ad_id:
-        A_data = stub.AdIdToData(i)
+        A_data = stub.AdIdToData(db_pb2.Id(id=i))
         for j in A_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 1/len(list(profile_data.clicked_ad_id))
@@ -103,7 +103,7 @@ def PR(pid, stub):
             publisher_rate[A_data.publisher_id] = 3 / \
                 len(list(profile_data.clicked_ad_id))
     for i in profile_data.viewed_post_id:
-        P_data = stub.PostIdToData(i)
+        P_data = stub.PostIdToData(db_pb2.Id(id=i))
         for j in P_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 2/len(list(profile_data.viewed_post_id))
@@ -116,7 +116,7 @@ def PR(pid, stub):
             publisher_rate[P_data.publisher_id] = 6 / \
                 len(list(profile_data.viewed_post_id))
     for i in profile_data.liked_post_id:
-        P_data = stub.PostIdToData(i)
+        P_data = stub.PostIdToData(db_pb2.Id(id=i))
         for j in P_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 3/len(list(profile_data.liked_post_id))
@@ -129,7 +129,7 @@ def PR(pid, stub):
             publisher_rate[P_data.publisher_id] = 8 / \
                 len(list(profile_data.liked_post_id))
     for i in tags_rate.keys():
-        temp = stub.TagToAd(i)
+        temp = stub.TagToAd(db_pb2.Id(id=i))
         for j in temp.ads_id:
             if j not in profile_data.viewed_post_id:
                 if j in post_ratings.keys():
@@ -137,7 +137,7 @@ def PR(pid, stub):
                 else:
                     post_ratings[j] = tags_rate[i]
     for i in publisher_rate.keys():
-        temp = stub.AuthorToAd(i)
+        temp = stub.AuthorToAd(db_pb2.Id(id=i))
         for j in temp.ads_id:
             if j not in profile_data.viewed_post_id:
                 if j in post_ratings.keys():

@@ -1,0 +1,20 @@
+//user similarity based post and ad recom
+syntax = "proto3";
+
+service SimilarityRecom {
+    rpc AdRecom (PId) returns (PriorityIds) {}   //gets user id and return ad Ids and their priority value
+    rpc PostRecom (PId) returns (PriorityIds) {} //gets user id and return post Ids and their priority value
+}
+
+message PId {
+    string id = 1;
+}
+
+message PriorityIds {
+    repeated touples ids = 1;
+}
+
+message touples {
+    string id = 1;
+    float value = 2;
+}

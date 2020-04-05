@@ -20,13 +20,13 @@ class SimilarityRecom(SB_pb2_grpc.SimilarityRecomServicer):
 
 def AD(pid, stub):
     Ad_rating = {}
-    profile_data = stub.UserIdtoData(pid)
+    profile_data = stub.UserIdtoData(db_pb2.Id(id=pid))
     all_posts = list(profile_data.viewed_post_id) + \
         list(profile_data.liked_post_id)
     ads = list(profile_data.clicked_ad_id)
     users = User_digger(all_posts, ads, stub)
     for i in users:
-        temp = stub.UserIdtoData(i)
+        temp = stub.UserIdtoData(db_pb2.Id(id=i))
         similarity_rate = similarity(profile_data, temp, True)
         for j in temp.clicked_ad_id:
             if j not in profile_data.clicked_ad_id:
@@ -42,13 +42,13 @@ def AD(pid, stub):
 
 def PR(pid, stub):
     post_rating = {}
-    profile_data = stub.UserIdtoData(pid)
+    profile_data = stub.UserIdtoData(db_pb2.Id(id=pid))
     all_posts = list(profile_data.viewed_post_id) + \
         list(profile_data.liked_post_id)
     ads = list(profile_data.clicked_ad_id)
     users = User_digger(all_posts, ads, stub)
     for i in users:
-        temp = stub.UserIdtoData(i)
+        temp = stub.UserIdtoData(db_pb2.Id(id=i))
         similarity_rate = similarity(profile_data, temp, False)
         temp_posts = list(temp.viewed_post_id) + list(temp.liked_post_id)
         for j in temp_posts:
@@ -66,7 +66,7 @@ def PR(pid, stub):
 def User_digger(posts, ads, stub):
     users = []
     for i in posts:
-        p_data = stub.PostIdToData(i)
+        p_data = stub.PostIdToData(db_pb2.Id(id=i))
         for j in p_data.viewers_id:
             if j not in users:
                 users.append(j)
@@ -74,7 +74,7 @@ def User_digger(posts, ads, stub):
             if k not in users:
                 users.append(k)
     for l in ads:
-        ad_data = stub.AdIdToData(l)
+        ad_data = stub.AdIdToData(db_pb2.Id(id=l))
         for k in ad_data.clickers_id:
             users.append(l)
     return users
