@@ -18,9 +18,9 @@ class SimilarityRecom(SB_pb2_grpc.SimilarityRecomServicer):
         return PR(request.id, self.stub)
 
 
-def AD(id, stub):
+def AD(pid, stub):
     Ad_rating = {}
-    profile_data = stub.UserIdtoData(id)
+    profile_data = stub.UserIdtoData(pid)
     all_posts = list(profile_data.viewed_post_id) + \
         list(profile_data.liked_post_id)
     ads = list(profile_data.clicked_ad_id)
@@ -40,9 +40,9 @@ def AD(id, stub):
     return result
 
 
-def PR(id, stub):
+def PR(pid, stub):
     post_rating = {}
-    profile_data = stub.UserIdtoData(id)
+    profile_data = stub.UserIdtoData(pid)
     all_posts = list(profile_data.viewed_post_id) + \
         list(profile_data.liked_post_id)
     ads = list(profile_data.clicked_ad_id)
