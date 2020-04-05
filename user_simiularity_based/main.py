@@ -66,7 +66,7 @@ def PR(pid, stub):
 def User_digger(posts, ads, stub):
     users = []
     for i in posts:
-        p_data = stub.PostIdToData(db_pb2.Id(id=i))
+        p_data = stub.PostIdtoData(db_pb2.Id(id=i))
         for j in p_data.viewers_id:
             if j not in users:
                 users.append(j)
@@ -76,7 +76,8 @@ def User_digger(posts, ads, stub):
     for l in ads:
         ad_data = stub.AdIdToData(db_pb2.Id(id=l))
         for k in ad_data.clickers_id:
-            users.append(l)
+            if k not in users:
+                users.append(k)
     return users
 
 
@@ -85,8 +86,8 @@ def similarity(data, profile_data, flag):
         set(profile_data.clicked_ad_id)))/len(set(data.clicked_ad_id))
     viewed_rate = len(set(data.viewed_post_id).intersection(
         set(profile_data.viewed_post_id)))/len(set(data.viewed_post_id))
-    liked_rate = len(set(data.liked_ad_id).intersection(
-        set(profile_data.liked_ad_id)))/len(set(data.liked_ad_id))
+    liked_rate = len(set(data.liked_post_id).intersection(
+        set(profile_data.liked_post_id)))/len(set(data.liked_post_id))
     if flag:
         return (liked_rate*3 + viewed_rate*2 + clicked_rate*2)/7
     else:

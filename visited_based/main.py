@@ -37,7 +37,7 @@ def AD(pid, stub):
             publisher_rate[A_data.publisher_id] = 6 / \
                 len(list(profile_data.clicked_ad_id))
     for i in profile_data.viewed_post_id:
-        P_data = stub.PostIdToData(db_pb2.Id(id=i))
+        P_data = stub.PostIdtoData(db_pb2.Id(id=i))
         for j in P_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 2/len(list(profile_data.viewed_post_id))
@@ -50,7 +50,7 @@ def AD(pid, stub):
             publisher_rate[P_data.publisher_id] = 6 / \
                 len(list(profile_data.viewed_post_id))
     for i in profile_data.liked_post_id:
-        P_data = stub.PostIdToData(db_pb2.Id(id=i))
+        P_data = stub.PostIdtoData(db_pb2.Id(id=i))
         for j in P_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 3/len(list(profile_data.liked_post_id))
@@ -103,7 +103,7 @@ def PR(pid, stub):
             publisher_rate[A_data.publisher_id] = 3 / \
                 len(list(profile_data.clicked_ad_id))
     for i in profile_data.viewed_post_id:
-        P_data = stub.PostIdToData(db_pb2.Id(id=i))
+        P_data = stub.PostIdtoData(db_pb2.Id(id=i))
         for j in P_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 2/len(list(profile_data.viewed_post_id))
@@ -116,7 +116,7 @@ def PR(pid, stub):
             publisher_rate[P_data.publisher_id] = 6 / \
                 len(list(profile_data.viewed_post_id))
     for i in profile_data.liked_post_id:
-        P_data = stub.PostIdToData(db_pb2.Id(id=i))
+        P_data = stub.PostIdtoData(db_pb2.Id(id=i))
         for j in P_data.tags:
             if j in tags_rate.keys():
                 tags_rate[j] += 3/len(list(profile_data.liked_post_id))
@@ -129,16 +129,16 @@ def PR(pid, stub):
             publisher_rate[P_data.publisher_id] = 8 / \
                 len(list(profile_data.liked_post_id))
     for i in tags_rate.keys():
-        temp = stub.TagToAd(db_pb2.Id(id=i))
-        for j in temp.ads_id:
+        temp = stub.TagToPost(db_pb2.Id(id=i))
+        for j in temp.posts_id:
             if j not in profile_data.viewed_post_id:
                 if j in post_ratings.keys():
                     post_ratings[j] += tags_rate[i]
                 else:
                     post_ratings[j] = tags_rate[i]
     for i in publisher_rate.keys():
-        temp = stub.AuthorToAd(db_pb2.Id(id=i))
-        for j in temp.ads_id:
+        temp = stub.AuthorToPosts(db_pb2.Id(id=i))
+        for j in temp.posts_id:
             if j not in profile_data.viewed_post_id:
                 if j in post_ratings.keys():
                     post_ratings[j] += publisher_rate[i]

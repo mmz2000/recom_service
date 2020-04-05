@@ -19,9 +19,9 @@ def Ad_recom (pid):
         t2 = executor.submit(stub2.AdRecom, SB_pb2.PId(id=pid))
         result1 = t1.result()
         result2 = t2.result()
-    for i in result1.touples:
+    for i in result1.ids:
         ad_rates[i.id] = i.value
-    for i in result2.touples:
+    for i in result2.ids:
         if i.id in ad_rates.keys():
             ad_rates[i.id] += i.value
         else:
@@ -34,13 +34,13 @@ def Post_recom(pid):
     result2 = None
     post_rates = {}
     with futures.ThreadPoolExecutor() as executor:
-        t1 = executor.submit(stub1.PostRecom, pid)
-        t2 = executor.submit(stub2.PostRecom, pid)
+        t1 = executor.submit(stub1.PostRecom,  SB_pb2.PId(id=pid))
+        t2 = executor.submit(stub2.PostRecom,  SB_pb2.PId(id=pid))
         result1 = t1.result()
         result2 = t2.result()
-    for i in result1.touples:
+    for i in result1.ids:
         post_rates[i.id] = i.value
-    for i in result2.touples:
+    for i in result2.ids:
         if i.id in post_rates.keys():
             post_rates[i.id] += i.value
         else:
